@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/titanium-as/TitaniumAS.Opc.Client/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/titanium-as/TitaniumAS.Opc.Client</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Open source OPC DA client library for .NET Framework.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>OPC DA Client .NET C#</tags>
+  </metadata>
+</package>

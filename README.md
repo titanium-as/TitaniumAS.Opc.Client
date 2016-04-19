@@ -3,7 +3,7 @@ Open source .NET client library for OPC DA. The library provides you with .NET C
 
 ## Features
 - Support of local and network OPC DA servers.
-- Support OPC DA 1.0, 2.05A, 3.0.
+- Support of OPC DA 1.0, 2.05A, 3.0.
 - Browsing of OPC DA servers.
 - Async/await in read and write operations.
 - Subscription to data changes via .NET events.
@@ -17,44 +17,35 @@ PM> Install-Package TitaniumAS.Opc.Client
 ```
 See [NuGet package](https://www.nuget.org/packages/TitaniumAS.Opc.Client).
 
-## Bootstrapping the library
-A process which uses the library should be started under MTA apartment state due to [CoInitializeSecurity](http://www.pinvoke.net/default.aspx/ole32/CoInitializeSecurity.html) call during the library initialization. 
-
-When you initialize the library in a UI application (WinForms/WPF), an `STAThreadAttribute` should be removed from the program entry point. You can use a workaround like the following:
-- extract a content of a method `Main` to `RunApplication`;
-- call `Bootstrap.Initialize()` first;
-- create new thread with STA apartment state to run the UI application:
-```csharp
-  var thread = new Thread(RunApplication);
-  thread.SetApartmentState(ApartmentState.STA);
-  thread.Start();
-```
-
 ## Basic usage
-The following examples cover basic usages of the library. Assume you have a console application with a method `Main` as entry point. Also you have installed NuGet package with the library.
+The following examples cover basic usages of the library. Assume you have an application with installed NuGet package of the library.
+
+#### Bootstrapping the library
+Call `Bootstrap.Initialize()` in the start of your application. An application process should be started under MTA apartment state due to [CoInitializeSecurity](http://www.pinvoke.net/default.aspx/ole32/CoInitializeSecurity.html) call during the library initialization. See [explanation](http://www.pinvoke.net/default.aspx/ole32/CoInitializeSecurity.html).
 
 #### Connecting to an OPC DA server
 You should create OPC DA server instance first and then connect to it.
 ```csharp
-static void Main(string[] args)
+// Make URL of OPC DA server using builder.
+Uri url = UrlBuilder.Build("Matrikon.OPC.Simulation.1");
+using (var server = new OpcDaServer(url))
 {
-    // Make URL of OPC DA server using builder.
-    Uri url = UrlBuilder.Build("Matrikon.OPC.Simulation.1");
-    using (var server = new OpcDaServer(url))
-    {
-        // Connect to the server first.
-        server.Connect();
-        ...
-        
-        Console.ReadLine();
-    }
+    // Connect to the server first.
+    server.Connect();
+    ...
 }
 ```
 
 #### Browsing elements
-Here is a helper method `BrowseChildren` you can use to browse all elements of an OPC DA server.
+You can browse all elements of any OPC DA servers versions with `OpcDaBrowserAuto`.
 ```csharp
-static void BrowseChildren(IOpcDaBrowser browser, string itemId = null, int indent = 0)
+...
+// Create browser and browse all elements recursively.
+var browser = new OpcDaBrowserAuto(server);
+BrowseChildren(browser);
+...
+
+void BrowseChildren(IOpcDaBrowser browser, string itemId = null, int indent = 0)
 {
     // When itemId is null, root elements will be browsed.
     OpcDaBrowseElement[] elements = browser.GetElements(itemId);
@@ -75,17 +66,9 @@ static void BrowseChildren(IOpcDaBrowser browser, string itemId = null, int inde
     }
 }
 ```
-Let's use it in the `Main`. 
-```csharp
-...
-// Browse elements.
-var browser = new OpcDaBrowserAuto(server);
-BrowseChildren(browser);
-...
-```
 
 #### Creating a group with items
-Let's add a group with two items to the OPC DA server. 
+You can add a group with items to the OPC DA server. 
 ```csharp
 ...
 // Create a group with items.
@@ -115,47 +98,39 @@ foreach (OpcDaItemResult result in results)
 ```
 
 #### Reading values
-So we have the group, let's read values of items. It can be made either synchronously or asynchronously as you wish.
-Either
+Items of a group can be read either synchronously or asynchronously.
 ```csharp
 ...
+// Read all items of the group synchronously.
 OpcDaItemValue[] values = group.Read(group.Items, OpcDaDataSource.Device);
-...
-```
-or
-```csharp
-...
-Task<OpcDaItemValue[]> task = ReadValuesAsync(group);
-task.Wait();
-values = task.Result;
-...
 
-static async Task<OpcDaItemValue[]> ReadValuesAsync(OpcDaGroup group)
-{
-    return await group.ReadAsync(group.Items);
-}
+// Read all items of the group asynchronously.
+OpcDaItemValue[] values = await group.ReadAsync(group.Items);
+...
 ```
 
 #### Writing values
-Let's write value `123` to the item `Bucket Brigade.Int4`. As before it can be made either synchronously (using `group.Write`) or asynchronously (using `group.WriteAsync`).
+Also items of a group can be written either synchronously or asynchronously.
 ```csharp
 ...
-// Write value to the item.
-OpcDaItem item = group.Items.FirstOrDefault(i => i.ItemId == "Bucket Brigade.Int4")
-OpcDaItem[] items = { item };
-object[] newValues = { 123 };
+// Prepare items.
+OpcDaItem int2 = group.Items.FirstOrDefault(i => i.ItemId == "Bucket Brigade.Int2");
+OpcDaItem int4 = group.Items.FirstOrDefault(i => i.ItemId == "Bucket Brigade.Int4");
+OpcDaItem[] items = { int2, int4 };
 
-HRESULT[] writeResults = group.Write(items, newValues);
-// or group.WriteAsync(items, newValues).Result;
+// Write values to the items synchronously.
+object[] values = { 1, 2 };
+HRESULT[] results = group.Write(items, values);
+...
 
-// Handle write result.
-if (writeResults[0].Failed)
-    Console.WriteLine("Error writing value");
+// Write values to the items synchronously.
+object[] values = { 3, 4 };
+HRESULT[] results = await group.WriteAsync(items, values);
 ...
 ```
 
 #### Getting values by subscription
-A group can be configured for providing a client with new values when they are changed. Let's subscribe to `ValuesChanged` event of the group.
+A group can be configured for providing a client with new values when they are changed.
 ```csharp
 ...
 // Configure subscription.

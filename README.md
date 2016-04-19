@@ -26,7 +26,7 @@ Call `Bootstrap.Initialize()` in the start of your application. An application p
 #### Connecting to an OPC DA server
 You should create OPC DA server instance first and then connect to it.
 ```csharp
-// Make URL of OPC DA server using builder.
+// Make an URL of OPC DA server using builder.
 Uri url = UrlBuilder.Build("Matrikon.OPC.Simulation.1");
 using (var server = new OpcDaServer(url))
 {
@@ -39,8 +39,7 @@ using (var server = new OpcDaServer(url))
 #### Browsing elements
 You can browse all elements of any OPC DA servers versions with `OpcDaBrowserAuto`.
 ```csharp
-...
-// Create browser and browse all elements recursively.
+// Create a browser and browse all elements recursively.
 var browser = new OpcDaBrowserAuto(server);
 BrowseChildren(browser);
 ...
@@ -70,7 +69,6 @@ void BrowseChildren(IOpcDaBrowser browser, string itemId = null, int indent = 0)
 #### Creating a group with items
 You can add a group with items to the OPC DA server. 
 ```csharp
-...
 // Create a group with items.
 OpcDaGroup group = server.AddGroup("MyGroup");
 group.IsActive = true;
@@ -100,9 +98,9 @@ foreach (OpcDaItemResult result in results)
 #### Reading values
 Items of a group can be read either synchronously or asynchronously.
 ```csharp
-...
 // Read all items of the group synchronously.
 OpcDaItemValue[] values = group.Read(group.Items, OpcDaDataSource.Device);
+...
 
 // Read all items of the group asynchronously.
 OpcDaItemValue[] values = await group.ReadAsync(group.Items);
@@ -112,7 +110,6 @@ OpcDaItemValue[] values = await group.ReadAsync(group.Items);
 #### Writing values
 Also items of a group can be written either synchronously or asynchronously.
 ```csharp
-...
 // Prepare items.
 OpcDaItem int2 = group.Items.FirstOrDefault(i => i.ItemId == "Bucket Brigade.Int2");
 OpcDaItem int4 = group.Items.FirstOrDefault(i => i.ItemId == "Bucket Brigade.Int4");
@@ -132,7 +129,6 @@ HRESULT[] results = await group.WriteAsync(items, values);
 #### Getting values by subscription
 A group can be configured for providing a client with new values when they are changed.
 ```csharp
-...
 // Configure subscription.
 group.ValuesChanged += OnGroupValuesChanged;
 group.UpdateRate = TimeSpan.FromMilliseconds(100); // ValuesChanged won't be triggered if zero

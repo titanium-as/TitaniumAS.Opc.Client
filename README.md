@@ -120,7 +120,7 @@ object[] values = { 1, 2 };
 HRESULT[] results = group.Write(items, values);
 ...
 
-// Write values to the items synchronously.
+// Write values to the items asynchronously.
 object[] values = { 3, 4 };
 HRESULT[] results = await group.WriteAsync(items, values);
 ...

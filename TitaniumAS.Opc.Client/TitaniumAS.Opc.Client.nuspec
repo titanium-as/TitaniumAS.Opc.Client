@@ -12,6 +12,6 @@
     <description>$description$</description>
     <releaseNotes>Open source OPC DA client library for .NET Framework.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>OPC DA Client .NET C#</tags>
+    <tags>OPC DA 1.0 2.05A 3.0 Client .NET C#</tags>
   </metadata>
 </package>

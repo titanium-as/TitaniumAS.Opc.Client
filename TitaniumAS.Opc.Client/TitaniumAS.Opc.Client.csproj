@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F7347F4-79F1-4C63-8C75-60F8D1A7E950}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TitaniumAS.Opc.Client</RootNamespace>
+    <AssemblyName>TitaniumAS.Opc.Client</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">.\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\NuGetPackages\Common.Logging.3.3.0\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\NuGetPackages\Common.Logging.Core.3.3.0\lib\net40\Common.Logging.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\ComProxyBlanket.cs" />
+    <Compile Include="Common\OpcClientException.cs" />
+    <Compile Include="Common\UrlParser.cs" />
+    <Compile Include="Common\UrlValidationResult.cs" />
+    <Compile Include="Common\UrlValidator.cs" />
+    <Compile Include="Common\ComWrapper.cs" />
+    <Compile Include="Common\Internal\CategoryEnumerator.cs" />
+    <Compile Include="Common\Internal\ConnectionPoint.cs" />
+    <Compile Include="Common\UrlBuilder.cs" />
+    <Compile Include="Common\Wrappers\OpcEnumGuid.cs" />
+    <Compile Include="Common\Wrappers\EnumGuid.cs" />
+    <Compile Include="Common\Wrappers\OpcServerList2.cs" />
+    <Compile Include="Common\Wrappers\OpcServerList.cs" />
+    <Compile Include="Common\Wrappers\OpcShutdown.cs" />
+    <Compile Include="Da\Browsing\Internal\OpcBrowseServerAddressSpaceExtensions.cs" />
+    <Compile Include="Da\Browsing\Internal\OpcItemPropertiesExtensions.cs" />
+    <Compile Include="Da\Browsing\IOpcDaBrowser.cs" />
+    <Compile Include="Common\Wrappers\IComWrapper.cs" />
+    <Compile Include="Da\Wrappers\OpcAsyncIO3.cs" />
+    <Compile Include="Da\Wrappers\OpcAsyncIO2.cs" />
+    <Compile Include="Da\Wrappers\OpcItemSamplingMgt.cs" />
+    <Compile Include="Da\Wrappers\OpcSyncIO2.cs" />
+    <Compile Include="Da\Wrappers\OpcSyncIO.cs" />
+    <Compile Include="Da\Wrappers\OpcItemMgt.cs" />
+    <Compile Include="Da\Wrappers\OpcGroupStateMgt2.cs" />
+    <Compile Include="Da\Wrappers\OpcGroupStateMgt.cs" />
+    <Compile Include="Da\Wrappers\OpcServer.cs" />
+    <Compile Include="Da\Wrappers\OpcBrowse.cs" />
+    <Compile Include="Da\Wrappers\OpcBrowseServerAddressSpace.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowser1.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowserAuto.cs" />
+    <Compile Include="Common\Wrappers\OpcCommon.cs" />
+    <Compile Include="Da\Wrappers\OpcItemIO.cs" />
+    <Compile Include="Da\Wrappers\OpcItemProperties.cs" />
+    <Compile Include="Da\OpcDaItemsChangedEventArgs.cs" />
+    <Compile Include="Da\OpcDaPropertiesQuery.cs" />
+    <Compile Include="Da\OpcDaItemPropertyIds.cs" />
+    <Compile Include="Da\OpcDaNamespaceType.cs" />
+    <Compile Include="Da\IOpcDaItem.cs" />
+    <Compile Include="Da\OpcDaElementFilter.cs" />
+    <Compile Include="Da\OpcDaServerConnectionStateChangedEventArgs.cs" />
+    <Compile Include="Da\OpcDaServerGroupsChangedEventArgs.cs" />
+    <Compile Include="Da\Wrappers\OpcDataCallback.cs" />
+    <Compile Include="Common\IllegalType.cs" />
+    <Compile Include="Interop\System\IClassFactory2.cs" />
+    <Compile Include="Interop\System\IClientSecurity.cs" />
+    <Compile Include="Interop\System\LICINFO.cs" />
+    <Compile Include="Interop\System\MULTI_QI.cs" />
+    <Compile Include="Interop\System\SOLE_AUTHENTICATION_SERVICE.cs" />
+    <Compile Include="Interop\System\COAUTHIDENTITY.cs" />
+    <Compile Include="Interop\System\COAUTHINFO.cs" />
+    <Compile Include="Interop\System\Com.cs" />
+    <Compile Include="Interop\System\ComConstants.cs" />
+    <Compile Include="Interop\Common\RpcDwCapabilities.cs" />
+    <Compile Include="Interop\Common\RpcAuthType.cs" />
+    <Compile Include="Interop\Common\RpcAuthService.cs" />
+    <Compile Include="Interop\Common\RpcImpLevel.cs" />
+    <Compile Include="Interop\Common\RpcAuthnLevel.cs" />
+    <Compile Include="Interop\Common\IOPCServerList.cs" />
+    <Compile Include="Interop\Common\IOPCEnumGUID.cs" />
+    <Compile Include="Interop\Common\IOPCServerList2.cs" />
+    <Compile Include="Interop\Common\Interop.Interop.cs" />
+    <Compile Include="Common\Internal\IOpcServerListEnumerator.cs" />
+    <Compile Include="Common\Internal\IOpcServerShutdownHandler.cs" />
+    <Compile Include="Common\Internal\OpcServerList2Enumerator.cs" />
+    <Compile Include="Common\Internal\OpcServerListEnumerator.cs" />
+    <Compile Include="Common\Internal\StdComponentCategoriesMgr.cs" />
+    <Compile Include="Common\OpcServerCategory.cs" />
+    <Compile Include="Common\OpcServerDescription.cs" />
+    <Compile Include="Common\OpcServerEnumeratorAuto.cs" />
+    <Compile Include="Common\OpcShutdownEventArgs.cs" />
+    <Compile Include="Da\Internal\ArrayHelpers.cs" />
+    <Compile Include="Da\Internal\ExceptionHelper.cs" />
+    <Compile Include="Da\Internal\Requests\IAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\Slots.cs" />
+    <Compile Include="Da\Internal\Requests\WriteVQTAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\RefreshMaxAgeAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\ReadMaxAgeAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\RefreshAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\RequestHelpers.cs" />
+    <Compile Include="Da\Internal\Requests\WriteAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\ReadAsyncRequest.cs" />
+    <Compile Include="Da\Internal\Requests\AsyncRequestManager.cs" />
+    <Compile Include="Da\IOpcDaGroup.cs" />
+    <Compile Include="Da\IOpcDaServer.cs" />
+    <Compile Include="Interop\System\ServerInfo.cs" />
+    <Compile Include="Interop\System\COSERVERINFO.cs" />
+    <Compile Include="Interop\Da\IOPCItemProperties.cs" />
+    <Compile Include="Interop\Helpers\CultureHelper.cs" />
+    <Compile Include="OpcConfiguration.cs" />
+    <Compile Include="Da\OpcDaGroupFeatures.cs" />
+    <Compile Include="Da\OpcDaGroupState.cs" />
+    <Compile Include="Da\OpcDaItem.cs" />
+    <Compile Include="Da\OpcDaQuality.cs" />
+    <Compile Include="Da\OpcDaQualityLimit.cs" />
+    <Compile Include="Da\OpcDaQualityMaster.cs" />
+    <Compile Include="Da\OpcDaQualityStatus.cs" />
+    <Compile Include="Da\OpcDaItemValuesChangedEventArgs.cs" />
+    <Compile Include="Da\OpcDaVQT.cs" />
+    <Compile Include="Da\OpcDaVQTE.cs" />
+    <Compile Include="Interop\Common\IOPCShutdown.cs" />
+    <Compile Include="Interop\Common\IEnumGUID.cs" />
+    <Compile Include="Interop\Common\IOPCCommon.cs" />
+    <Compile Include="Interop\Da\IOPCItemSamplingMgt.cs" />
+    <Compile Include="Interop\Da\IOPCAsyncIO.cs" />
+    <Compile Include="Interop\Da\IOPCAsyncIO3.cs" />
+    <Compile Include="Interop\Da\IOPCDataCallback.cs" />
+    <Compile Include="Interop\Da\IOPCAsyncIO2.cs" />
+    <Compile Include="Interop\Da\OPCBROWSEELEMENT.cs" />
+    <Compile Include="Interop\Da\IOPCBrowse.cs" />
+    <Compile Include="Interop\Da\IOPCSyncIO2.cs" />
+    <Compile Include="Interop\Da\OPCBROWSEFILTER.cs" />
+    <Compile Include="Interop\Da\OPCITEMPROPERTIES.cs" />
+    <Compile Include="Interop\Da\OPCITEMPROPERTY.cs" />
+    <Compile Include="Interop\Helpers\FileTimeConverter.cs" />
+    <Compile Include="Da\OpcDaAccessRights.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowseDirection.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowseElement.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowseFilter.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowser3.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowseType.cs" />
+    <Compile Include="Da\OpcDaGroup.cs" />
+    <Compile Include="Da\OpcDaServer.cs" />
+    <Compile Include="Da\OpcDaDataSource.cs" />
+    <Compile Include="Da\OpcDaEnumScope.cs" />
+    <Compile Include="Da\OpcDaEUType.cs" />
+    <Compile Include="Da\OpcDaItemAttributes.cs" />
+    <Compile Include="Da\OpcDaItemDefinition.cs" />
+    <Compile Include="Da\OpcDaItemProperties.cs" />
+    <Compile Include="Da\OpcDaItemProperty.cs" />
+    <Compile Include="Da\OpcDaItemResult.cs" />
+    <Compile Include="Da\Browsing\OpcDaBrowser2.cs" />
+    <Compile Include="Da\OpcDaServerState.cs" />
+    <Compile Include="Da\OpcDaServerStatus.cs" />
+    <Compile Include="Da\OpcDaItemValue.cs" />
+    <Compile Include="Interop\Da\OPCITEMSTATE.cs" />
+    <Compile Include="Interop\Da\IOPCSyncIO.cs" />
+    <Compile Include="Interop\Da\OPCDATASOURCE.cs" />
+    <Compile Include="Interop\Helpers\OpcDaQualityHelpers.cs" />
+    <Compile Include="Common\HRESULT.cs" />
+    <Compile Include="Interop\Da\OPC_QUALITY_STATUS.cs" />
+    <Compile Include="Interop\Common\IEnumUnknown.cs" />
+    <Compile Include="Interop\Common\IEnumString.cs" />
+    <Compile Include="Interop\Common\IConnectionPoint.cs" />
+    <Compile Include="Interop\Da\OPCITEMVQT.cs" />
+    <Compile Include="Interop\Da\IOPCItemIO.cs" />
+    <Compile Include="Interop\Da\OPCEUTYPE.cs" />
+    <Compile Include="Interop\Da\OPCITEMATTRIBUTES.cs" />
+    <Compile Include="Interop\Da\IEnumOPCItemAttributes.cs" />
+    <Compile Include="Interop\Da\OPCENUMSCOPE.cs" />
+    <Compile Include="Interop\Da\IOPCBrowseServerAddressSpace.cs" />
+    <Compile Include="Interop\Da\IOPCServer.cs" />
+    <Compile Include="Interop\Da\IOpcGroupStateMgt.cs" />
+    <Compile Include="Interop\Da\IOPCGroupStateMgt2.cs" />
+    <Compile Include="Interop\Da\IOPCItemMgt.cs" />
+    <Compile Include="Interop\Da\OPCACCESSRIGHTS.cs" />
+    <Compile Include="Interop\Da\OPCBROWSEDIRECTION.cs" />
+    <Compile Include="Interop\Da\OPCBROWSETYPE.cs" />
+    <Compile Include="Interop\Da\OPCITEMDEF.cs" />
+    <Compile Include="Interop\Da\OPCITEMRESULT.cs" />
+    <Compile Include="Interop\Da\OPCNAMESPACETYPE.cs" />
+    <Compile Include="Interop\Da\OPCSERVERSTATE.cs" />
+    <Compile Include="Interop\Da\OPCSERVERSTATUS.cs" />
+    <Compile Include="Interop\Helpers\EnumHelpers.cs" />
+    <Compile Include="Interop\Da\OPC_QUALITY_LIMIT.cs" />
+    <Compile Include="Interop\Da\OPC_QUALITY_MASKS.cs" />
+    <Compile Include="Interop\Da\OPC_QUALITY_MASTER.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Common\RpcFailedEventArgs.cs" />
+    <Compile Include="Interop\Helpers\TypeConverter.cs" />
+    <Compile Include="Bootstrap.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

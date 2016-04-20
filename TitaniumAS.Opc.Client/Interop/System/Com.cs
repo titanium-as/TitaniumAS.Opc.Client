@@ -124,9 +124,10 @@ namespace TitaniumAS.Opc.Client.Interop.System
                 serverInfo.Deallocate();
             }
 
-            if (results[0].hr != 0)
+            int error = (int) results[0].hr;
+            if (error != 0)
             {
-                throw new Exception("CoCreateInstanceEx: " + GetSystemMessage((int) results[0].hr));
+                throw new ExternalException("CoCreateInstanceEx: " + GetSystemMessage(error), error);
             }
 
             return results[0].pItf;

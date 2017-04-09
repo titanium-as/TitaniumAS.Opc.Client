@@ -103,9 +103,16 @@ namespace TitaniumAS.Opc.Client.Da
         object ComObject { get; }
 
         /// <summary>
-        /// Connects the server instance to COM server.
+        /// Connects the server instance to COM server with timeout.
         /// </summary>
-        void Connect();
+        /// <param name="timeout">Timeout in timespan</param>
+        bool Connect(TimeSpan timeout);
+
+        /// <summary>
+        /// Connects the server instance to COM server with timeout.
+        /// </summary>
+        /// <param name="milliseconds">Timeout in milliseconds</param>
+        bool Connect(int milliseconds);
 
         /// <summary>
         /// Releases connection to COM server for the server instance.

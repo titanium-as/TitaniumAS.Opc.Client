@@ -14,6 +14,8 @@ using TitaniumAS.Opc.Client.Da.Wrappers;
 using TitaniumAS.Opc.Client.Interop.Common;
 using TitaniumAS.Opc.Client.Interop.Helpers;
 using TitaniumAS.Opc.Client.Interop.System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TitaniumAS.Opc.Client.Da
 {
@@ -23,6 +25,7 @@ namespace TitaniumAS.Opc.Client.Da
     /// <seealso cref="TitaniumAS.Opc.Da.IOpcDaServer" />
     public class OpcDaServer : IOpcDaServer
     {
+        private AutoResetEvent _connectionTimeout = new AutoResetEvent(false);
         private static readonly ILog Log = LogManager.GetLogger<OpcDaServer>();
         private readonly List<OpcDaGroup> _groups = new List<OpcDaGroup>();
         private readonly ConnectionPoint<IOPCShutdown> _shutdownConnectionPoint;
@@ -137,6 +140,44 @@ namespace TitaniumAS.Opc.Client.Da
                 Log.Warn("Cannot setup name of client.", ex);
             }
             OnConnectionStateChanged(true);
+            _connectionTimeout.Set();
+        }
+
+        /// <summary>
+        /// Connects the server instance to COM server.
+        /// </summary>
+        /// <param name="timeout">The TimeSpan to wait before timeout. Maximum value of Int32.MaxValue milliseconds.</param>
+        /// <returns>True if connection succeeded, false if it failed or timed out.</returns>
+        /// <exception cref="System.InvalidOperationException">Already connected to the OPC DA server.</exception>
+        public bool Connect(TimeSpan timeout)
+        {
+            double timeoutMilliseconds = timeout.TotalMilliseconds;
+
+            // Trim to MaxInt if necessary ~25 days of wait time
+            if (timeoutMilliseconds > Int32.MaxValue)
+                timeoutMilliseconds = Int32.MaxValue;
+
+            return Connect(Convert.ToInt32(timeoutMilliseconds));
+        }
+
+        /// <summary>
+        /// Connects the server instance to COM server.
+        /// </summary>
+        /// <param name="milliseconds">Number of milliseconds to wait before timeout</param>
+        /// <returns>True if connection succeeded, false if it failed or timed out</returns>
+        /// <exception cref="System.InvalidOperationException">Already connected to the OPC DA server.</exception>
+        public bool Connect(int milliseconds)
+        {
+            bool connected = false;
+
+            Task t = new Task(() =>
+            {
+                Connect();
+            });
+
+            connected = _connectionTimeout.WaitOne(milliseconds);
+
+            return connected;
         }
 
         private void DisconnectImpl(bool rpcFailed = false)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Threading.Tasks;
 using TitaniumAS.Opc.Client.Common;
 
 namespace TitaniumAS.Opc.Client.Da
@@ -103,16 +104,10 @@ namespace TitaniumAS.Opc.Client.Da
         object ComObject { get; }
 
         /// <summary>
-        /// Connects the server instance to COM server with timeout.
+        /// Asynchronously connects to the OpcDa server
         /// </summary>
-        /// <param name="timeout">Timeout in timespan</param>
-        bool Connect(TimeSpan timeout);
-
-        /// <summary>
-        /// Connects the server instance to COM server with timeout.
-        /// </summary>
-        /// <param name="milliseconds">Timeout in milliseconds</param>
-        bool Connect(int milliseconds);
+        /// <returns>A task to wait upon</returns>
+        Task ConnectAsync();
 
         /// <summary>
         /// Releases connection to COM server for the server instance.

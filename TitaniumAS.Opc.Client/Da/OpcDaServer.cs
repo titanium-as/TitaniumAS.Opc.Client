@@ -110,7 +110,7 @@ namespace TitaniumAS.Opc.Client.Da
         }
 
         /// <summary>
-        ///     Connects the server instance to COM server.
+        /// Connects the server instance to COM server.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Already connected to the OPC DA server.</exception>
         public void Connect()
@@ -141,6 +141,13 @@ namespace TitaniumAS.Opc.Client.Da
             OnConnectionStateChanged(true);
         }
 
+        /// <summary>
+        /// Asynchronout connect method
+        /// </summary>
+        /// <returns>
+        /// A running task to wait on for connect
+        /// </returns>
+        /// <seealso cref="Connect()"/>
         public Task ConnectAsync()
         {
             return Task.Factory.StartNew(() => { Connect(); });

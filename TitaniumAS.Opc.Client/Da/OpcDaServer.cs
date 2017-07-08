@@ -14,6 +14,8 @@ using TitaniumAS.Opc.Client.Da.Wrappers;
 using TitaniumAS.Opc.Client.Interop.Common;
 using TitaniumAS.Opc.Client.Interop.Helpers;
 using TitaniumAS.Opc.Client.Interop.System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TitaniumAS.Opc.Client.Da
 {
@@ -108,7 +110,7 @@ namespace TitaniumAS.Opc.Client.Da
         }
 
         /// <summary>
-        ///     Connects the server instance to COM server.
+        /// Connects the server instance to COM server.
         /// </summary>
         /// <exception cref="System.InvalidOperationException">Already connected to the OPC DA server.</exception>
         public void Connect()
@@ -137,6 +139,18 @@ namespace TitaniumAS.Opc.Client.Da
                 Log.Warn("Cannot setup name of client.", ex);
             }
             OnConnectionStateChanged(true);
+        }
+
+        /// <summary>
+        /// Asynchronout connect method
+        /// </summary>
+        /// <returns>
+        /// A running task to wait on for connect
+        /// </returns>
+        /// <seealso cref="Connect()"/>
+        public Task ConnectAsync()
+        {
+            return Task.Factory.StartNew(() => { Connect(); });
         }
 
         private void DisconnectImpl(bool rpcFailed = false)

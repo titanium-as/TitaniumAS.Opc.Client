@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Threading.Tasks;
 using TitaniumAS.Opc.Client.Common;
 
 namespace TitaniumAS.Opc.Client.Da
@@ -103,9 +104,10 @@ namespace TitaniumAS.Opc.Client.Da
         object ComObject { get; }
 
         /// <summary>
-        /// Connects the server instance to COM server.
+        /// Asynchronously connects to the OpcDa server
         /// </summary>
-        void Connect();
+        /// <returns>A task to wait upon</returns>
+        Task ConnectAsync();
 
         /// <summary>
         /// Releases connection to COM server for the server instance.

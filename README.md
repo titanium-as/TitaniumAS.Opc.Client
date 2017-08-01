@@ -145,6 +145,11 @@ static void OnGroupValuesChanged(object sender, OpcDaItemValuesChangedEventArgs 
 }
 ```
 
+## Troubleshooting
+* Check Opc Core Components (https://opcfoundation.org/developer-tools/developer-kits-classic/core-components) installed on your system first. It is possible you have not installed OPCEnum service.
+* To run unit tests in NUnit, it should be configured with x86 envirenment.
+* In Visual Studio, set your project to use "Prefer 32-bit". Project Properties → Build → "Prefer 32-bit" in Platform target. The code should be compiled as 32-bit.
+
 ## API documentation
 Comming soon...
 

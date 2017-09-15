@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net4;netstandard2.0</TargetFrameworks>
     <Title>TitaniumAS.Opc.Client</Title>
     <Authors>Titanium AS</Authors>
     <Description>.NET client library for OPC DA versions 1.0, 2.05A, 3.0.</Description>
@@ -16,6 +16,5 @@
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="3.4.1" />
   </ItemGroup>
-
 
 </Project>

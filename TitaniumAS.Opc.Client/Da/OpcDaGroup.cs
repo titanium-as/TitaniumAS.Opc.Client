@@ -470,9 +470,9 @@ namespace TitaniumAS.Opc.Client.Da
             }
             set
             {
-                if (!Is<OpcGroupStateMgt2>())
+                if (!Is<OpcGroupStateMgt2>(out var v))
                     return;
-                _keepAlive = As<OpcGroupStateMgt2>().SetKeepAlive(value);
+                _keepAlive = v.SetKeepAlive(value);
             }
         }
 
@@ -918,6 +918,19 @@ namespace TitaniumAS.Opc.Client.Da
             return As<T>() != null;
         }
 
+        /// <summary>
+        ///     Determines whether this instance is of specified COM wrapper type.
+        /// </summary>
+        /// <typeparam name="T">The COM wrapper type.</typeparam>
+        /// <param name="value">Casted to type <typeparamref name="T"/> value</param>
+        /// <returns><c>true</c> if this instance is of specified COM wrapper type; otherwise, <c>false</c>.</returns>
+        public bool Is<T>(out T value) where T : ComWrapper
+        {
+            value = As<T>();
+
+            return value != null;
+        }
+
         private OpcDaItemResult[] CreateItemResults(IList<OpcDaItemDefinition> itemDefinitions, OPCITEMDEF[] pItemArray,
             OPCITEMRESULT[] opcDaItemResults, HRESULT[] ppErrors, bool setGroup)
         {
@@ -1047,9 +1060,9 @@ namespace TitaniumAS.Opc.Client.Da
 
         private TimeSpan RefreshKeepAlive()
         {
-            if (!Is<OpcGroupStateMgt2>())
+            if (!Is<OpcGroupStateMgt2>(out var v))
                 return TimeSpan.Zero;
-            return As<OpcGroupStateMgt2>().GetKeepAlive();
+            return v.GetKeepAlive();
         }
 
         // Protected implementation of Dispose pattern.

@@ -491,6 +491,19 @@ namespace TitaniumAS.Opc.Client.Da
             return As<T>() != null;
         }
 
+        /// <summary>
+        ///     Determines whether this instance is of specified COM wrapper type.
+        /// </summary>
+        /// <typeparam name="T">The COM wrapper type.</typeparam>
+        /// <param name="value">Casted to type <typeparamref name="T"/> value</param>
+        /// <returns><c>true</c> if this instance is of specified COM wrapper type; otherwise, <c>false</c>.</returns>
+        public bool Is<T>(out T value) where T : ComWrapper
+        {
+            value = As<T>();
+
+            return value != null;
+        }
+
         private void RemoveAllGroups(bool rpcFailed = false)
         {
             foreach (OpcDaGroup opcDaGroup in _groups.ToArray())
